@@ -1,0 +1,6 @@
+@InfoSystem_HostAddress = http://localhost:5107
+
+GET {{InfoSystem_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
