@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using InfoSystem.Services;
+using InfoSystem.Models;
 
 namespace InfoSystem.Controllers
 {
@@ -51,6 +52,29 @@ namespace InfoSystem.Controllers
       catch (Exception ex)
       {
         _logger.LogError(ex, $"Error occurred while retrieving product with ID {id}");
+        return StatusCode(500, "Internal server error");
+      }
+    }
+    // add a product 
+    [HttpPost("products")]
+    public async Task<IActionResult> AddProduct([FromBody] Product product)
+    {
+      if (product == null)
+      {
+        _logger.LogWarning("Received a null product object");
+        return BadRequest("Product object is null");
+      }
+
+      _logger.LogInformation("Received request to add a new product");
+      try
+      {
+        await _productService.AddProductAsync(product);
+        _logger.LogInformation("Product added successfully");
+        return CreatedAtAction(nameof(GetProductById), new { id = product.Id }, product);
+      }
+      catch (Exception ex)
+      {
+        _logger.LogError(ex, "Error occurred while adding the product");
         return StatusCode(500, "Internal server error");
       }
     }

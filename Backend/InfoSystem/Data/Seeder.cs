@@ -34,18 +34,18 @@ namespace InfoSystem.Data
 
         foreach (var product in products)
         {
-          using (var command = new MySqlCommand("AddProduct", connection))
-          {
-            command.CommandType = CommandType.StoredProcedure;
-            command.Parameters.AddWithValue("@p_ProductName", product.ProductName ?? (object)DBNull.Value);
-            command.Parameters.AddWithValue("@p_Category", product.Category ?? (object)DBNull.Value);
-            command.Parameters.AddWithValue("@p_Price", product.Price);
-            command.Parameters.AddWithValue("@p_StockQuantity", product.StockQuantity);
-            command.Parameters.AddWithValue("@p_Supplier", product.Supplier ?? (object)DBNull.Value);
-            command.Parameters.AddWithValue("@p_Description", product.Description ?? (object)DBNull.Value);
+          // using (var command = new MySqlCommand("AddProduct", connection))
+          // {
+          //   command.CommandType = CommandType.StoredProcedure;
+          //   command.Parameters.AddWithValue("@p_ProductName", product.ProductName ?? (object)DBNull.Value);
+          //   command.Parameters.AddWithValue("@p_Category", product.Category ?? (object)DBNull.Value);
+          //   command.Parameters.AddWithValue("@p_Price", product.Price);
+          //   command.Parameters.AddWithValue("@p_StockQuantity", product.StockQuantity);
+          //   command.Parameters.AddWithValue("@p_Supplier", product.Supplier ?? (object)DBNull.Value);
+          //   command.Parameters.AddWithValue("@p_Description", product.Description ?? (object)DBNull.Value);
 
-            await command.ExecuteNonQueryAsync();
-          }
+          //   await command.ExecuteNonQueryAsync();
+          // }
         }
       }
     }

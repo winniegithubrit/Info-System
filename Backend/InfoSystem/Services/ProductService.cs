@@ -14,26 +14,6 @@ namespace InfoSystem.Services
                           ?? throw new ArgumentNullException(nameof(configuration));
     }
 
-    public async Task AddProductAsync(Product product)
-    {
-      using (var connection = new MySqlConnection(_connectionString))
-      {
-        using (var command = new MySqlCommand("AddProduct", connection))
-        {
-          command.CommandType = CommandType.StoredProcedure;
-          command.Parameters.AddWithValue("@p_ProductName", product.ProductName ?? (object)DBNull.Value);
-          command.Parameters.AddWithValue("@p_Category", product.Category ?? (object)DBNull.Value);
-          command.Parameters.AddWithValue("@p_Price", product.Price);
-          command.Parameters.AddWithValue("@p_StockQuantity", product.StockQuantity);
-          command.Parameters.AddWithValue("@p_Supplier", product.Supplier ?? (object)DBNull.Value);
-          command.Parameters.AddWithValue("@p_Description", product.Description ?? (object)DBNull.Value);
-
-          await connection.OpenAsync();
-          await command.ExecuteNonQueryAsync();
-        }
-      }
-    }
-
     public async Task<List<Product>> GetProductsAsync()
     {
       var products = new List<Product>();
@@ -66,7 +46,8 @@ namespace InfoSystem.Services
 
       return products;
     }
-    // product by id functionality
+
+    // Get product by ID functionality
     public async Task<Product?> GetProductByIdAsync(int id)
     {
       Product? product = null;
@@ -99,6 +80,27 @@ namespace InfoSystem.Services
       }
 
       return product;
+    }
+
+    // Post product functionality
+    public async Task AddProductAsync(Product product)
+    {
+      using (var connection = new MySqlConnection(_connectionString))
+      {
+        using (var command = new MySqlCommand("AddProduct", connection))
+        {
+          command.CommandType = CommandType.StoredProcedure;
+          command.Parameters.AddWithValue("@p_ProductName", product.ProductName ?? (object)DBNull.Value);
+          command.Parameters.AddWithValue("@p_Category", product.Category ?? (object)DBNull.Value);
+          command.Parameters.AddWithValue("@p_Price", product.Price);
+          command.Parameters.AddWithValue("@p_StockQuantity", product.StockQuantity);
+          command.Parameters.AddWithValue("@p_Supplier", product.Supplier ?? (object)DBNull.Value);
+          command.Parameters.AddWithValue("@p_Description", product.Description ?? (object)DBNull.Value);
+
+          await connection.OpenAsync();
+          await command.ExecuteNonQueryAsync();
+        }
+      }
     }
   }
 }

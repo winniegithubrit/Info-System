@@ -77,3 +77,24 @@ BEGIN
 END //
 
 DELIMITER ;
+# add product stored procedure
+DELIMITER //
+
+-- Drop the existing AddProduct procedure if it exists
+DROP PROCEDURE IF EXISTS AddProduct;
+
+-- Create the PostProduct procedure
+CREATE PROCEDURE PostProduct(
+    IN p_ProductName VARCHAR(255),
+    IN p_Category VARCHAR(255),
+    IN p_Price DECIMAL(10,2),
+    IN p_StockQuantity INT,
+    IN p_Supplier VARCHAR(255),
+    IN p_Description TEXT
+)
+BEGIN
+    INSERT INTO Products (ProductName, Category, Price, StockQuantity, Supplier, Description)
+    VALUES (p_ProductName, p_Category, p_Price, p_StockQuantity, p_Supplier, p_Description);
+END //
+
+DELIMITER ;
