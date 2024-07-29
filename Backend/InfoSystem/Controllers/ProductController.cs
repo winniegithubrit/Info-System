@@ -79,5 +79,29 @@ namespace InfoSystem.Controllers
       }
     }
 
+    // Delete a product
+    // Delete a product
+    [HttpDelete("products/{id}")]
+    public async Task<IActionResult> DeleteProduct(int id)
+    {
+      try
+      {
+        var isDeleted = await _productService.DeleteProductAsync(id);
+        if (isDeleted)
+        {
+          return Ok(new { message = "Product deleted successfully" }); 
+        }
+        else
+        {
+          return NotFound(new { message = "Product not found" }); 
+        }
+      }
+      catch (Exception)
+      {
+        return StatusCode(500, new { message = "Internal server error" }); 
+      }
+    }
+
+
   }
 }

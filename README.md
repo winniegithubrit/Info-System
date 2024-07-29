@@ -98,3 +98,19 @@ BEGIN
 END //
 
 DELIMITER ;
+# detele procedure
+DELIMITER //
+
+-- Drop the existing DeleteProduct procedure if it exists
+DROP PROCEDURE IF EXISTS DeleteProduct;
+
+-- Create the DeleteProduct procedure
+CREATE PROCEDURE DeleteProduct(
+    IN p_Id INT
+)
+BEGIN
+    DELETE FROM Products
+    WHERE Id = p_Id;
+END //
+
+DELIMITER ;

@@ -102,5 +102,24 @@ namespace InfoSystem.Services
         }
       }
     }
+    // delete functionality
+    public async Task<bool> DeleteProductAsync(int id)
+    {
+      using (var connection = new MySqlConnection(_connectionString))
+      {
+        using (var command = new MySqlCommand("DeleteProduct", connection))
+        {
+          command.CommandType = CommandType.StoredProcedure;
+          command.Parameters.AddWithValue("@p_Id", id);
+
+          await connection.OpenAsync();
+          var result = await command.ExecuteNonQueryAsync();
+
+          // If the number of affected rows is greater than 0, deletion was successful
+          return result > 0;
+        }
+      }
+    }
+
   }
 }
