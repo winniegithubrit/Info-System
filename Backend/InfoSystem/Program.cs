@@ -9,6 +9,17 @@ builder.Services.AddControllers();
 builder.Services.AddScoped<ProductService>();
 builder.Services.AddTransient<Seeder>();
 builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
+// Configure Kestrel to use HTTPS with an existing certificate
+builder.WebHost.ConfigureKestrel(options =>
+{
+   
+    // HTTPS configuration with a certificate file
+    options.ListenLocalhost(5001, listenOptions =>
+    {
+        listenOptions.UseHttps("new-certificate.pfx", "jomo");
+    });
+});
+
 
 builder.Services.Configure<ForwardedHeadersOptions>(options =>
 {
@@ -17,8 +28,10 @@ builder.Services.Configure<ForwardedHeadersOptions>(options =>
 
 builder.Services.AddHttpsRedirection(options =>
 {
-    options.HttpsPort = 5000;
+    options.HttpsPort = 5001;
 });
+
+
 
 builder.Logging.ClearProviders();
 builder.Logging.AddConsole();

@@ -1,7 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
 using InfoSystem.Services;
-using InfoSystem.Models;
 
 namespace InfoSystem.Controllers
 {
@@ -10,19 +8,29 @@ namespace InfoSystem.Controllers
   public class ProductController : ControllerBase
   {
     private readonly ProductService _productService;
+    private readonly ILogger<ProductController> _logger;
 
-    public ProductController(ProductService productService)
+    public ProductController(ProductService productService, ILogger<ProductController> logger)
     {
       _productService = productService;
+      _logger = logger;
     }
 
-   
     [HttpGet("products")]
     public async Task<IActionResult> GetProducts()
     {
-      var products = await _productService.GetProductsAsync();
-      return Ok(products);
+      _logger.LogInformation("Received request to get products");
+      try
+      {
+        var products = await _productService.GetProductsAsync();
+        _logger.LogInformation($"Retrieved {products.Count} products");
+        return Ok(products);
+      }
+      catch (Exception ex)
+      {
+        _logger.LogError(ex, "Error occurred while retrieving products");
+        return StatusCode(500, "Internal server error");
+      }
     }
-
   }
 }
