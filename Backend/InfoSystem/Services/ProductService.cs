@@ -66,5 +66,39 @@ namespace InfoSystem.Services
 
       return products;
     }
+    // product by id functionality
+    public async Task<Product?> GetProductByIdAsync(int id)
+    {
+      Product? product = null;
+
+      using (var connection = new MySqlConnection(_connectionString))
+      {
+        using (var command = new MySqlCommand("GetProductById", connection))
+        {
+          command.CommandType = CommandType.StoredProcedure;
+          command.Parameters.AddWithValue("@p_Id", id);
+
+          await connection.OpenAsync();
+          using (var reader = await command.ExecuteReaderAsync())
+          {
+            if (await reader.ReadAsync())
+            {
+              product = new Product
+              {
+                Id = reader.GetInt32(reader.GetOrdinal("Id")),
+                ProductName = reader.GetString(reader.GetOrdinal("ProductName")),
+                Category = reader.GetString(reader.GetOrdinal("Category")),
+                Price = reader.GetDecimal(reader.GetOrdinal("Price")),
+                StockQuantity = reader.GetInt32(reader.GetOrdinal("StockQuantity")),
+                Supplier = reader.GetString(reader.GetOrdinal("Supplier")),
+                Description = reader.GetString(reader.GetOrdinal("Description"))
+              };
+            }
+          }
+        }
+      }
+
+      return product;
+    }
   }
 }

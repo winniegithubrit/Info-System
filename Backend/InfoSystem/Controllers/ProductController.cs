@@ -32,5 +32,28 @@ namespace InfoSystem.Controllers
         return StatusCode(500, "Internal server error");
       }
     }
+    // get product by id
+    [HttpGet("products/{id}")]
+    public async Task<IActionResult> GetProductById(int id)
+    {
+      _logger.LogInformation($"Received request to get product with ID {id}");
+      try
+      {
+        var product = await _productService.GetProductByIdAsync(id);
+        if (product == null)
+        {
+          _logger.LogWarning($"Product with ID {id} not found");
+          return NotFound();
+        }
+        _logger.LogInformation($"Retrieved product with ID {id}");
+        return Ok(product);
+      }
+      catch (Exception ex)
+      {
+        _logger.LogError(ex, $"Error occurred while retrieving product with ID {id}");
+        return StatusCode(500, "Internal server error");
+      }
+    }
+
   }
 }

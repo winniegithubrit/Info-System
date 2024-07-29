@@ -57,3 +57,23 @@ BEGIN
 END //
 
 DELIMITER ;
+# retrieves the product by their id
+DELIMITER //
+
+CREATE PROCEDURE GetProductById(IN p_Id INT)
+BEGIN
+    SELECT 
+        Id,
+        ProductName,
+        Category,
+        Price,
+        StockQuantity,
+        Supplier,
+        Description
+    FROM 
+        Products
+    WHERE 
+        Id = p_Id;
+END //
+
+DELIMITER ;
