@@ -46,3 +46,14 @@ CREATE TABLE Products (
     Supplier VARCHAR(255),
     Description TEXT
 );
+do installations
+dotnet add package System.Data.SqlClient
+# This procedure will retrieve products:
+DELIMITER //
+
+CREATE PROCEDURE GetProducts()
+BEGIN
+    SELECT * FROM Products;
+END //
+
+DELIMITER ;
