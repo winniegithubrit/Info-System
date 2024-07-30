@@ -78,9 +78,7 @@ namespace InfoSystem.Controllers
         return StatusCode(500, "Internal server error");
       }
     }
-
-    // Delete a product
-    // Delete a product
+  // Delete a product
     [HttpDelete("products/{id}")]
     public async Task<IActionResult> DeleteProduct(int id)
     {

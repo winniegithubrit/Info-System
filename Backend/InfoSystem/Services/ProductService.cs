@@ -7,13 +7,13 @@ namespace InfoSystem.Services
   public class ProductService
   {
     private readonly string _connectionString;
-
+// constructor initializing connection string for configuration
     public ProductService(IConfiguration configuration)
     {
       _connectionString = configuration.GetConnectionString("DefaultConnection")
                           ?? throw new ArgumentNullException(nameof(configuration));
     }
-
+    // Method to retrieve all products from the database
     public async Task<List<Product>> GetProductsAsync()
     {
       var products = new List<Product>();
@@ -27,6 +27,7 @@ namespace InfoSystem.Services
           await connection.OpenAsync();
           using (var reader = await command.ExecuteReaderAsync())
           {
+            // Reading  data from the database and add to the products list
             while (await reader.ReadAsync())
             {
               products.Add(new Product

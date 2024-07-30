@@ -1,0 +1,72 @@
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
+*{
+  font-family: "DM Sans", sans-serif;
+  
+}
+
+h1 {
+  color: #00b3b3;
+  text-align: center;
+  margin-bottom: 20px;
+  font-weight: bolder;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+
+
+th,
+td {
+  padding: 18px 15px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+  
+}
+
+th {
+  background-color: #00b3b3;
+  color: white;
+}
+
+tbody tr:hover {
+  background-color: #cdcaca;
+}
+
+.product-list li {
+  margin: 5px 0;
+  padding: 10px;
+  background-color: #f9f9f9;
+  border-radius: 5px;
+}
+
+/* pagination css */
+.pagination {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.pagination button {
+  margin: 0 10px;
+  padding: 8px 16px;
+  background-color: #00b3b3;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.pagination button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.pagination span {
+  font-size: 14px;
+}
