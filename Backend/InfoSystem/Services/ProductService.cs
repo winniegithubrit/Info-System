@@ -86,19 +86,24 @@ namespace InfoSystem.Services
     // Post product functionality
     public async Task AddProductAsync(Product product)
     {
+      // creating a new mysql connection
       using (var connection = new MySqlConnection(_connectionString))
       {
+        // new mysql command with the stored procedure
         using (var command = new MySqlCommand("AddProduct", connection))
         {
+          // stating that the command is a stored procedure
           command.CommandType = CommandType.StoredProcedure;
+          // Add parameters to the command for each property of the Product object dbnull is for null values
           command.Parameters.AddWithValue("@p_ProductName", product.ProductName ?? (object)DBNull.Value);
           command.Parameters.AddWithValue("@p_Category", product.Category ?? (object)DBNull.Value);
           command.Parameters.AddWithValue("@p_Price", product.Price);
           command.Parameters.AddWithValue("@p_StockQuantity", product.StockQuantity);
           command.Parameters.AddWithValue("@p_Supplier", product.Supplier ?? (object)DBNull.Value);
           command.Parameters.AddWithValue("@p_Description", product.Description ?? (object)DBNull.Value);
-
+// opening the database connection asynchronously
           await connection.OpenAsync();
+        // executing the stored procedure asynchronously
           await command.ExecuteNonQueryAsync();
         }
       }
@@ -111,9 +116,12 @@ namespace InfoSystem.Services
         using (var command = new MySqlCommand("DeleteProduct", connection))
         {
           command.CommandType = CommandType.StoredProcedure;
+     // Adding a parameter for the product ID to the command
+
           command.Parameters.AddWithValue("@p_Id", id);
 
           await connection.OpenAsync();
+          // Executing the stored procedure asynchronously and store the number of affected rows
           var result = await command.ExecuteNonQueryAsync();
 
           // If the number of affected rows is greater than 0, deletion was successful

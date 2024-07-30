@@ -16,14 +16,16 @@ namespace InfoSystem.Controllers
       _productService = productService;
       _logger = logger;
     }
-
+// end point to get all products
     [HttpGet("products")]
     public async Task<IActionResult> GetProducts()
     {
       _logger.LogInformation("Received request to get products");
       try
       {
+        // fetching the product from the service asynchronously
         var products = await _productService.GetProductsAsync();
+        // stating the number of products retrieved
         _logger.LogInformation($"Retrieved {products.Count} products");
         return Ok(products);
       }

@@ -140,3 +140,5 @@ END //
 
 DELIMITER ;
 # The Math.ceil function rounds up to the nearest integer.
+
+=== strict equality operator
