@@ -1,0 +1,101 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
+
+* {
+  font-family: "DM Sans", sans-serif;
+}
+.add-product-button {
+  margin-bottom: 20px;
+  padding: 10px 20px;
+  margin-left: 85%;
+  background-color: #00b3b3;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+
+}
+
+.add-product-button:hover {
+  background-color: #ff4500;
+}
+
+.add-product-button svg {
+  margin-right: 8px;
+}
+
+
+.add-product-container {
+  max-width: 500px;
+  margin: 15px auto;
+  padding: 15px;
+  border-radius: 8px;
+  background-color: #ebe9e9;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.add-product-container h2 {
+  text-align: center;
+  margin-bottom: 1px;
+  color: #00b3b3;
+  font-weight: bolder;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 1px;
+  font-weight: bold;
+  color: #555;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+.form-group textarea {
+  height: 60px;
+}
+
+.error {
+  color: red;
+  margin-bottom: 15px;
+}
+
+button {
+  display: inline-block;
+  padding: 8px 16px;
+  font-size: 14px;
+  border: none;
+  border-radius: 4px;
+  background-color: #00b3b3;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-top: 10px;
+}
+
+button:hover {
+  background-color: #007d7d;
+}
+
+button.back-button {
+  background-color: #6c757d;
+  margin-left: 10px;
+  
+}
+
+button.back-button:hover {
+  background-color: #5a6268;
+}

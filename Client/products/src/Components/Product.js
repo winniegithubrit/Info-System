@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from "react";
 import "./Product.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus,faTrash } from "@fortawesome/free-solid-svg-icons";
+import { useNavigate } from "react-router-dom";
 
 function Product() {
   const [products, setProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch("https://localhost:5001/api/Product/products")
@@ -30,10 +34,28 @@ function Product() {
       setCurrentPage(currentPage + 1);
     }
   };
+// navigating to the AddProduct form page
+const handleAddProduct = () => {
+  navigate("/add-product");
+}
+// delete functionality
+const handleDelete = async (productId) => {
+  try {
+    await fetch(`https://localhost:5001/api/Product/products/${productId}`, {
+      method: "DELETE",
+    });
+    setProducts(products.filter((product) => product.id !== productId));
+  } catch (error) {
+    console.error("Error deleting product:", error);
+  }
+};
 
   return (
     <div className="products-container">
       <h1>PRODUCT LIST</h1>
+      <button onClick={handleAddProduct} className="add-product-button">
+        <FontAwesomeIcon icon={faPlus} /> Add Product
+      </button>
       <div className="product-table">
         <table>
           <thead>
@@ -44,6 +66,7 @@ function Product() {
               <th>Stock Quantity</th>
               <th>Supplier</th>
               <th>Description</th>
+              <th>Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -55,6 +78,14 @@ function Product() {
                 <td>{product.stockQuantity}</td>
                 <td>{product.supplier}</td>
                 <td>{product.description}</td>
+                <td>
+                  <button
+                    onClick={() => handleDelete(product.id)}
+                    className="delete-button"
+                  >
+                    <FontAwesomeIcon icon={faTrash} />
+                  </button>
+                </td>
               </tr>
             ))}
           </tbody>
