@@ -3,7 +3,9 @@ import { useParams, useNavigate } from "react-router-dom";
 import "./UpdateProduct.css";
 
 function UpdateProductPage() {
+  // getting the product id from the route
   const { id } = useParams();
+  // states to hold the attributes
   const [product, setProduct] = useState(null);
   const [productName, setProductName] = useState("");
   const [category, setCategory] = useState("");
@@ -16,6 +18,7 @@ function UpdateProductPage() {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
+        // fetch and set the product data
         const response = await fetch(
           `https://localhost:5001/api/Product/products/${id}`
         );
@@ -34,7 +37,7 @@ function UpdateProductPage() {
 
     fetchProduct();
   }, [id]);
-
+// create the updated product object with form values
   const handleSubmit = async (e) => {
     e.preventDefault();
     const updatedProduct = {

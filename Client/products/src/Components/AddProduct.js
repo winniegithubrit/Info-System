@@ -10,6 +10,7 @@ function AddProduct() {
   const [supplier, setSupplier] = useState("");
   const [description, setDescription] = useState("");
   const [existingProducts, setExistingProducts] = useState([]);
+  // state for error messages
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
@@ -24,7 +25,7 @@ function AddProduct() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Check for duplicated products
+    // Check for duplicated products with the same name and  category
     const duplicate = existingProducts.find(
       (product) =>
         product.productName === productName && product.category === category
@@ -32,9 +33,10 @@ function AddProduct() {
 
     if (duplicate) {
       setError("A product with the same name and category already exists.");
+      // if there is duplication the error message is sent and the execution stopped
       return;
     }
-
+// new product object
     const newProduct = {
       productName,
       category,
@@ -43,7 +45,7 @@ function AddProduct() {
       supplier,
       description,
     };
-
+// post request to add a new product
     try {
       await fetch("https://localhost:5001/api/Product/products", {
         method: "POST",

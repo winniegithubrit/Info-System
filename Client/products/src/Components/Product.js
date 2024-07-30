@@ -19,19 +19,21 @@ function Product() {
       .then((res) => res.json())
       .then((products) => setProducts(products));
   }, []);
-
+// calculating the index of the last item
   const indexOfLastItem = currentPage * itemsPerPage;
+  // gives the index of the first item of the other page
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  // getting a portion of the products array to be displayed on the current page
   const currentProducts = products.slice(indexOfFirstItem, indexOfLastItem);
-
+// calculating the number of pages 
   const totalPages = Math.ceil(products.length / itemsPerPage);
-
+// handles the previous page
   const handlePreviousPage = () => {
     if (currentPage > 1) {
       setCurrentPage(currentPage - 1);
     }
   };
-
+// handles the next page
   const handleNextPage = () => {
     if (currentPage < totalPages) {
       setCurrentPage(currentPage + 1);
