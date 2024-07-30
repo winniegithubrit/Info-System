@@ -89,7 +89,7 @@ function AddProduct() {
           <label>Price</label>
           <input
             type="number"
-            step="1"
+            step="10"
             value={price}
             onChange={(e) => setPrice(e.target.value)}
             required
