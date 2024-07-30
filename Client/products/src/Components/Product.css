@@ -67,7 +67,33 @@ tbody tr:hover {
   background-color: #cccccc;
   cursor: not-allowed;
 }
+.pagination button :hover{
+  background-color: #ff4500;
+}
 
 .pagination span {
   font-size: 14px;
+}
+/* action button css*/
+.product-table .actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  
+}
+
+.product-table .delete-button,
+.product-table .edit-button {
+  border: none;
+  background-color: 00b3b3;
+  cursor: pointer;
+  font-size: 16px;
+
+ 
+}
+
+.product-table .delete-button:hover,
+.product-table .edit-button:hover {
+  background-color: #ff4500;
+
 }

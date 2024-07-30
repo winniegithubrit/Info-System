@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from "react";
 import "./Product.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus,faTrash } from "@fortawesome/free-solid-svg-icons";
+import {
+  faPlus,
+  faTrash,
+  faPenToSquare,
+} from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 
 function Product() {
@@ -16,7 +20,6 @@ function Product() {
       .then((products) => setProducts(products));
   }, []);
 
-  // Calculate the products to display on the current page
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentProducts = products.slice(indexOfFirstItem, indexOfLastItem);
@@ -34,21 +37,25 @@ function Product() {
       setCurrentPage(currentPage + 1);
     }
   };
-// navigating to the AddProduct form page
-const handleAddProduct = () => {
-  navigate("/add-product");
-}
-// delete functionality
-const handleDelete = async (productId) => {
-  try {
-    await fetch(`https://localhost:5001/api/Product/products/${productId}`, {
-      method: "DELETE",
-    });
-    setProducts(products.filter((product) => product.id !== productId));
-  } catch (error) {
-    console.error("Error deleting product:", error);
-  }
-};
+
+  const handleAddProduct = () => {
+    navigate("/add-product");
+  };
+
+  const handleDelete = async (productId) => {
+    try {
+      await fetch(`https://localhost:5001/api/Product/products/${productId}`, {
+        method: "DELETE",
+      });
+      setProducts(products.filter((product) => product.id !== productId));
+    } catch (error) {
+      console.error("Error deleting product:", error);
+    }
+  };
+
+  const handleEdit = (productId) => {
+    navigate(`/update-product/${productId}`);
+  };
 
   return (
     <div className="products-container">
@@ -79,12 +86,20 @@ const handleDelete = async (productId) => {
                 <td>{product.supplier}</td>
                 <td>{product.description}</td>
                 <td>
-                  <button
-                    onClick={() => handleDelete(product.id)}
-                    className="delete-button"
-                  >
-                    <FontAwesomeIcon icon={faTrash} />
-                  </button>
+                  <div className="actions">
+                    <button
+                      onClick={() => handleDelete(product.id)}
+                      className="delete-button"
+                    >
+                      <FontAwesomeIcon icon={faTrash} />
+                    </button>
+                    <button
+                      onClick={() => handleEdit(product.id)}
+                      className="edit-button"
+                    >
+                      <FontAwesomeIcon icon={faPenToSquare} />
+                    </button>
+                  </div>
                 </td>
               </tr>
             ))}

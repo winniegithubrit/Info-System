@@ -121,6 +121,38 @@ namespace InfoSystem.Services
         }
       }
     }
+    // PUT FUNCTIONALITY
+    public async Task<Product?> UpdateProductAsync(int id, Product product)
+    {
+      using (var connection = new MySqlConnection(_connectionString))
+      {
+        using (var command = new MySqlCommand("UpdateProduct", connection))
+        {
+          command.CommandType = CommandType.StoredProcedure;
+          command.Parameters.AddWithValue("@p_Id", id);
+          command.Parameters.AddWithValue("@p_ProductName", product.ProductName ?? (object)DBNull.Value);
+          command.Parameters.AddWithValue("@p_Category", product.Category ?? (object)DBNull.Value);
+          command.Parameters.AddWithValue("@p_Price", product.Price);
+          command.Parameters.AddWithValue("@p_StockQuantity", product.StockQuantity);
+          command.Parameters.AddWithValue("@p_Supplier", product.Supplier ?? (object)DBNull.Value);
+          command.Parameters.AddWithValue("@p_Description", product.Description ?? (object)DBNull.Value);
+
+          await connection.OpenAsync();
+          var affectedRows = await command.ExecuteNonQueryAsync();
+
+          // If the number of affected rows is greater than 0, update was successful
+          if (affectedRows > 0)
+          {
+            // Return updated product details
+            return await GetProductByIdAsync(id); 
+          }
+          else
+          {
+            return null; 
+          }
+        }
+      }
+    }
 
   }
 }

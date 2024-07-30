@@ -114,3 +114,28 @@ BEGIN
 END //
 
 DELIMITER ;
+# PARTIALLY UPDATE SP
+DELIMITER //
+
+CREATE PROCEDURE UpdateProduct(
+    IN p_Id INT,
+    IN p_ProductName VARCHAR(255),
+    IN p_Category VARCHAR(255),
+    IN p_Price DECIMAL(10,2),
+    IN p_StockQuantity INT,
+    IN p_Supplier VARCHAR(255),
+    IN p_Description TEXT
+)
+BEGIN
+    UPDATE Products
+    SET 
+        ProductName = COALESCE(p_ProductName, ProductName),
+        Category = COALESCE(p_Category, Category),
+        Price = p_Price,
+        StockQuantity = p_StockQuantity,
+        Supplier = COALESCE(p_Supplier, Supplier),
+        Description = COALESCE(p_Description, Description)
+    WHERE Id = p_Id;
+END //
+
+DELIMITER ;

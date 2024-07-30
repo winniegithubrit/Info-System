@@ -99,6 +99,32 @@ namespace InfoSystem.Controllers
         return StatusCode(500, new { message = "Internal server error" }); 
       }
     }
+    // PUT FUNCTIONALITY
+    [HttpPut("products/{id}")]
+    public async Task<IActionResult> UpdateProduct(int id, [FromBody] Product product)
+    {
+      if (product == null || id != product.Id)
+      {
+        return BadRequest("Product object is null or ID mismatch");
+      }
+
+      try
+      {
+        var updatedProduct = await _productService.UpdateProductAsync(id, product);
+        if (updatedProduct != null)
+        {
+          return Ok(updatedProduct);
+        }
+        else
+        {
+          return NotFound(new { message = "Product not found" });
+        }
+      }
+      catch (Exception)
+      {
+        return StatusCode(500, "Internal server error");
+      }
+    }
 
 
   }
