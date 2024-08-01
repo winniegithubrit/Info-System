@@ -42,7 +42,7 @@
   color: #00b3b3;
   font-weight: bolder;
 }
-
+/* the whole form */
 .form-group {
   margin-bottom: 15px;
 }
@@ -51,7 +51,7 @@
   display: block;
   margin-bottom: 1px;
   font-weight: bold;
-  color: #555;
+  color: #0a0a0a;
 }
 
 .form-group input,
@@ -64,14 +64,10 @@
   box-sizing: border-box;
 }
 
-.form-group textarea {
+/* .form-group textarea {
   height: 60px;
-}
+} */
 
-.error {
-  color: red;
-  margin-bottom: 15px;
-}
 
 button {
   display: inline-block;
@@ -87,7 +83,7 @@ button {
 }
 
 button:hover {
-  background-color: #007d7d;
+  background-color: #ff4500;
 }
 
 button.back-button {
@@ -97,5 +93,5 @@ button.back-button {
 }
 
 button.back-button:hover {
-  background-color: #5a6268;
+  background-color: #00b3b3;
 }

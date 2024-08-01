@@ -3,19 +3,19 @@ import { useNavigate } from "react-router-dom";
 import "./AddProduct.css";
 
 function AddProduct() {
-  const [productName, setProductName] = useState("");
-  const [category, setCategory] = useState("");
-  const [price, setPrice] = useState("");
-  const [stockQuantity, setStockQuantity] = useState("");
-  const [supplier, setSupplier] = useState("");
-  const [description, setDescription] = useState("");
+  const [formData, setFormData] = useState({
+    productName: "",
+    category: "",
+    price: "",
+    stockQuantity: "",
+    supplier: "",
+    description: "",
+  });
   const [existingProducts, setExistingProducts] = useState([]);
-  // state for error messages
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Fetch existing products to check for duplicates
     fetch("https://localhost:5001/api/Product/products")
       .then((res) => res.json())
       .then((products) => setExistingProducts(products))
@@ -25,38 +25,35 @@ function AddProduct() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Check for duplicated products with the same name and  category
     const duplicate = existingProducts.find(
       (product) =>
-        product.productName === productName && product.category === category
+        product.productName === formData.productName &&
+        product.category === formData.category
     );
 
     if (duplicate) {
       setError("A product with the same name and category already exists.");
-      // if there is duplication the error message is sent and the execution stopped
       return;
     }
-// new product object
-    const newProduct = {
-      productName,
-      category,
-      price: parseFloat(price),
-      stockQuantity: parseInt(stockQuantity),
-      supplier,
-      description,
-    };
-// post request to add a new product
+
     try {
       await fetch("https://localhost:5001/api/Product/products", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(newProduct),
+        body: JSON.stringify(formData),
       });
-      setError(""); 
-    
-      // navigate("/");
+      setError("");
+      navigate("/");
+      setFormData({
+        productName: "",
+        category: "",
+        price: "",
+        stockQuantity: "",
+        supplier: "",
+        description: "",
+      });
     } catch (error) {
       console.error("Error adding product:", error);
     }
@@ -68,58 +65,70 @@ function AddProduct() {
       {error && <p className="error">{error}</p>}
       <form onSubmit={handleSubmit}>
         <div className="form-group">
-          <label>Name</label>
+          <label>Product Name:</label>
           <input
             type="text"
-            value={productName}
-            onChange={(e) => setProductName(e.target.value)}
+            value={formData.productName}
+            onChange={(e) =>
+              setFormData({ ...formData, productName: e.target.value })
+            }
             required
           />
         </div>
         <div className="form-group">
-          <label>Category</label>
+          <label>Category:</label>
           <input
             type="text"
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
+            value={formData.category}
+            onChange={(e) =>
+              setFormData({ ...formData, category: e.target.value })
+            }
             required
           />
         </div>
         <div className="form-group">
-          <label>Price</label>
+          <label>Price:</label>
           <input
             type="number"
             step="10"
-            value={price}
-            onChange={(e) => setPrice(e.target.value)}
+            value={formData.price}
+            onChange={(e) =>
+              setFormData({ ...formData, price: e.target.value })
+            }
             required
           />
         </div>
         <div className="form-group">
-          <label>Stock Quantity</label>
+          <label>Stock Quantity:</label>
           <input
             type="number"
-            value={stockQuantity}
-            onChange={(e) => setStockQuantity(e.target.value)}
+            value={formData.stockQuantity}
+            onChange={(e) =>
+              setFormData({ ...formData, stockQuantity: e.target.value })
+            }
             required
           />
         </div>
         <div className="form-group">
-          <label>Supplier</label>
+          <label>Supplier:</label>
           <input
             type="text"
-            value={supplier}
-            onChange={(e) => setSupplier(e.target.value)}
+            value={formData.supplier}
+            onChange={(e) =>
+              setFormData({ ...formData, supplier: e.target.value })
+            }
             required
           />
         </div>
         <div className="form-group">
-          <label>Description</label>
+          <label>Description:</label>
           <textarea
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
+            value={formData.description}
+            onChange={(e) =>
+              setFormData({ ...formData, description: e.target.value })
+            }
             required
-          />
+          ></textarea>
         </div>
         <button type="submit">Add Product</button>
         <button

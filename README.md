@@ -53,7 +53,7 @@ DELIMITER //
 
 CREATE PROCEDURE GetProducts()
 BEGIN
-    SELECT * FROM Products;
+    SELECT * FROM Products ORDER BY id DESC;
 END //
 
 DELIMITER ;
@@ -101,10 +101,8 @@ DELIMITER ;
 # detele procedure
 DELIMITER //
 
--- Drop the existing DeleteProduct procedure if it exists
 DROP PROCEDURE IF EXISTS DeleteProduct;
 
--- Create the DeleteProduct procedure
 CREATE PROCEDURE DeleteProduct(
     IN p_Id INT
 )
@@ -114,6 +112,24 @@ BEGIN
 END //
 
 DELIMITER ;
+# LIFO for delete
+# by determining the recent id and calling the stored procedure to delete it 
+SELECT Id INTO @recentId FROM Products ORDER BY Id DESC LIMIT 1;
+CALL DeleteProduct(@recentId);
+# targeting the most recent id
+DELIMITER //
+
+DROP PROCEDURE IF EXISTS GetMostRecentProductId;
+
+CREATE PROCEDURE GetMostRecentProductId()
+BEGIN
+    SELECT Id FROM Products ORDER BY Id DESC LIMIT 1;
+END //
+
+DELIMITER ;
+
+
+
 # PARTIALLY UPDATE SP
 DELIMITER //
 
@@ -142,3 +158,4 @@ DELIMITER ;
 # The Math.ceil function rounds up to the nearest integer.
 
 === strict equality operator
+f12 google developer tools

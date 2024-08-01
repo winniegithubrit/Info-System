@@ -14,32 +14,38 @@ namespace InfoSystem.Services
                           ?? throw new ArgumentNullException(nameof(configuration));
     }
     // Method to retrieve all products from the database
-    public async Task<List<Product>> GetProductsAsync()
+    public async Task<IEnumerable<Product>> GetProductsAsync()
     {
       var products = new List<Product>();
 
+      // Create a new MySQL connection
       using (var connection = new MySqlConnection(_connectionString))
       {
+        // Create a new MySQL command with the stored procedure
         using (var command = new MySqlCommand("GetProducts", connection))
         {
+          // Indicate that the command is a stored procedure
           command.CommandType = CommandType.StoredProcedure;
 
+          // Open the database connection asynchronously
           await connection.OpenAsync();
+
+          // Execute the stored procedure and read the results
           using (var reader = await command.ExecuteReaderAsync())
           {
-            // Reading  data from the database and add to the products list
             while (await reader.ReadAsync())
             {
-              products.Add(new Product
+              var product = new Product
               {
-                Id = reader.GetInt32(reader.GetOrdinal("Id")),
-                ProductName = reader.GetString(reader.GetOrdinal("ProductName")),
-                Category = reader.GetString(reader.GetOrdinal("Category")),
-                Price = reader.GetDecimal(reader.GetOrdinal("Price")),
-                StockQuantity = reader.GetInt32(reader.GetOrdinal("StockQuantity")),
-                Supplier = reader.GetString(reader.GetOrdinal("Supplier")),
-                Description = reader.GetString(reader.GetOrdinal("Description"))
-              });
+                Id = reader.GetInt32("Id"),
+                ProductName = reader.GetString("ProductName"),
+                Category = reader.GetString("Category"),
+                Price = reader.GetDecimal("Price"),
+                StockQuantity = reader.GetInt32("StockQuantity"),
+                Supplier = reader.GetString("Supplier"),
+                Description = reader.GetString("Description")
+              };
+              products.Add(product);
             }
           }
         }
@@ -47,6 +53,7 @@ namespace InfoSystem.Services
 
       return products;
     }
+
 
     // Get product by ID functionality
     public async Task<Product?> GetProductByIdAsync(int id)
@@ -161,6 +168,24 @@ namespace InfoSystem.Services
         }
       }
     }
+    // service to delete the most recent id
+    public async Task<int?> GetMostRecentProductIdAsync()
+    {
+      int? mostRecentProductId = null;
 
+      using (var connection = new MySqlConnection(_connectionString))
+      {
+        using (var command = new MySqlCommand("GetMostRecentProductId", connection))
+        {
+          command.CommandType = CommandType.StoredProcedure;
+
+          await connection.OpenAsync();
+          var result = await command.ExecuteScalarAsync();
+          mostRecentProductId = result != null ? Convert.ToInt32(result) : (int?)null;
+        }
+      }
+
+      return mostRecentProductId;
+    }
   }
 }

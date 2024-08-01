@@ -14,26 +14,50 @@ function Product() {
   const itemsPerPage = 5;
   const navigate = useNavigate();
 
+  // Fetch products function
+  const fetchProducts = async () => {
+    try {
+      const response = await fetch(
+        "https://localhost:5001/api/Product/products"
+      );
+      const data = await response.json();
+      setProducts(data);
+      console.log("refreshing data:", new Date());
+    } catch (error) {
+      console.error("Error fetching products:", error);
+    }
+  };
+
+  // calling the fetch method
   useEffect(() => {
-    fetch("https://localhost:5001/api/Product/products")
-      .then((res) => res.json())
-      .then((products) => setProducts(products));
+    fetchProducts();
+    // Fetch products every 5 seconds
+    const interval = setInterval(() => {
+      fetchProducts();
+      
+    }, 5000); 
+
+    
+    return () => clearInterval(interval);
   }, []);
-// calculating the index of the last item
+
+  // Calculate the index of the last item on the current page
   const indexOfLastItem = currentPage * itemsPerPage;
-  // gives the index of the first item of the other page
+  // Calculate the index of the first item on the current page
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  // getting a portion of the products array to be displayed on the current page
+  // Get a portion of the products array to be displayed on the current page
   const currentProducts = products.slice(indexOfFirstItem, indexOfLastItem);
-// calculating the number of pages 
+  // Calculate the total number of pages
   const totalPages = Math.ceil(products.length / itemsPerPage);
-// handles the previous page
+
+  // Handle the previous page
   const handlePreviousPage = () => {
     if (currentPage > 1) {
       setCurrentPage(currentPage - 1);
     }
   };
-// handles the next page
+
+  // Handle the next page
   const handleNextPage = () => {
     if (currentPage < totalPages) {
       setCurrentPage(currentPage + 1);

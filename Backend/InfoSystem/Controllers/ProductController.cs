@@ -16,17 +16,15 @@ namespace InfoSystem.Controllers
       _productService = productService;
       _logger = logger;
     }
-// end point to get all products
+    // end point to get all products
     [HttpGet("products")]
     public async Task<IActionResult> GetProducts()
     {
-      _logger.LogInformation("Received request to get products");
+      _logger.LogInformation("Received request to retrieve all products");
+
       try
       {
-        // fetching the product from the service asynchronously
         var products = await _productService.GetProductsAsync();
-        // stating the number of products retrieved
-        _logger.LogInformation($"Retrieved {products.Count} products");
         return Ok(products);
       }
       catch (Exception ex)
@@ -35,6 +33,7 @@ namespace InfoSystem.Controllers
         return StatusCode(500, "Internal server error");
       }
     }
+
     // get product by id
     [HttpGet("products/{id}")]
     public async Task<IActionResult> GetProductById(int id)
@@ -128,6 +127,38 @@ namespace InfoSystem.Controllers
       }
     }
 
+    // deleting the most recent product
+    [HttpDelete("mostRecentProduct")]
+    public async Task<IActionResult> DeleteMostRecentProduct()
+    {
+      _logger.LogInformation("Received request to delete the most recent product");
 
+      try
+      {
+        var mostRecentProductId = await _productService.GetMostRecentProductIdAsync();
+        if (mostRecentProductId == null)
+        {
+          _logger.LogWarning("No products found to delete");
+          return NotFound(new { message = "No products found" });
+        }
+
+        var isDeleted = await _productService.DeleteProductAsync(mostRecentProductId.Value);
+        if (isDeleted)
+        {
+          _logger.LogInformation($"Product with ID {mostRecentProductId} deleted successfully");
+          return Ok(new { message = "Product deleted successfully" });
+        }
+        else
+        {
+          _logger.LogWarning($"Failed to delete product with ID {mostRecentProductId}");
+          return StatusCode(500, new { message = "Failed to delete the product" });
+        }
+      }
+      catch (Exception ex)
+      {
+        _logger.LogError(ex, "Error occurred while deleting the most recent product");
+        return StatusCode(500, "Internal server error");
+      }
+    }
   }
 }

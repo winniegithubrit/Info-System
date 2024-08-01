@@ -28,7 +28,7 @@
   display: block;
   margin-bottom: 5px;
   font-weight: bold;
-  color: #333;
+  color: #060606;
 }
 
 .update-product .form-group input,
@@ -60,10 +60,4 @@
   background-color: #ff4500;
 }
 
-.update-product button[type="button"] {
-  background-color: #ff4500;
-}
 
-.update-product button[type="button"]:hover {
-  background-color: #e03a00;
-}
