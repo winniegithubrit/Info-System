@@ -2,10 +2,13 @@ using InfoSystem.Services;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Mvc;
 using InfoSystem.Data;
+using MySql.Data.MySqlClient;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
+builder.Services.AddScoped<StudentService>();
 builder.Services.AddScoped<ProductService>();
 builder.Services.AddTransient<Seeder>();
 builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
@@ -31,6 +34,9 @@ builder.Services.AddHttpsRedirection(options =>
     options.HttpsPort = 5001;
 });
 
+// Register MySQL connection
+builder.Services.AddTransient<MySqlConnection>(_ =>
+    new MySqlConnection(builder.Configuration.GetConnectionString("MySqlConnection")));
 
 
 builder.Logging.ClearProviders();

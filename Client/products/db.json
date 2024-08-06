@@ -1,0 +1,183 @@
+{
+  "students": [
+    {
+      "id": 1,
+      "FirstName": "Wilhelm",
+      "LastName": "Prosacco",
+      "Gender": "Female",
+      "Email": "Darryl.Bailey78@hotmail.com"
+    },
+    {
+      "id": 2,
+      "FirstName": "Guadalupe",
+      "LastName": "Hirthe",
+      "Gender": "Female",
+      "Email": "Zaria_Moore@gmail.com"
+    },
+    {
+      "id": 3,
+      "FirstName": "Amir",
+      "LastName": "Trantow",
+      "Gender": "Male",
+      "Email": "Dallin_Sipes13@yahoo.com"
+    },
+    {
+      "id": 4,
+      "FirstName": "Lilla",
+      "LastName": "Flatley",
+      "Gender": "Female",
+      "Email": "Haskell84@hotmail.com"
+    },
+    {
+      "id": 5,
+      "FirstName": "Waino",
+      "LastName": "Schamberger",
+      "Gender": "Female",
+      "Email": "Nestor_Kessler95@hotmail.com"
+    },
+    {
+      "id": 6,
+      "FirstName": "Nels",
+      "LastName": "Franecki",
+      "Gender": "Male",
+      "Email": "Mario_Hoppe36@hotmail.com"
+    },
+    {
+      "id": 7,
+      "FirstName": "Kristopher",
+      "LastName": "Romaguera",
+      "Gender": "Male",
+      "Email": "Rico.Gutkowski93@hotmail.com"
+      
+    },
+    {
+      "id": 8,
+      "FirstName": "Matilde",
+      "LastName": "Wintheiser",
+      "Gender": "Female",
+      "Email": "Abel97@hotmail.com"
+     
+    },
+    {
+      "id": 9,
+      "FirstName": "Beau",
+      "LastName": "Moore",
+      "Gender": "Female",
+      "Email": "Demond82@yahoo.com"
+    },
+    {
+      "id": 10,
+      "FirstName": "Georgette",
+      "LastName": "Bernier",
+      "Gender": "Female",
+      "Email": "Marion.Kreiger42@yahoo.com"
+    },
+    {
+      "id": 11,
+      "FirstName": "Bradley",
+      "LastName": "Berge",
+      "Gender": "Male",
+      "Email": "Kennedy_Gulgowski73@gmail.com"
+    },
+    {
+      "id": 12,
+      "FirstName": "Tristian",
+      "LastName": "Ratke",
+      "Gender": "Male",
+      "Email": "Delaney_Sawayn91@gmail.com"
+     
+    },
+    {
+      "id": 13,
+      "FirstName": "Maxie",
+      "LastName": "Goldner",
+      "Gender": "Male",
+      "Email": "Ryleigh.Doyle40@yahoo.com"
+         },
+    {
+      "id": 14,
+      "FirstName": "Antwon",
+      "LastName": "Howell",
+      "Gender": "Male",
+      "Email": "Chyna_Homenick62@yahoo.com"
+      
+    },
+    {
+      "id": 15,
+      "FirstName": "Jaclyn",
+      "LastName": "Deckow",
+      "Gender": "Female",
+      "Email": "idell0@yahoo.com"
+    
+    },
+    {
+      "id": 16,
+      "FirstName": "Demond",
+      "LastName": "Fritsch",
+      "Gender": "Female",
+      "Email": "Josefina23@yahoo.com"
+     },
+    {
+      "id": 17,
+      "FirstName": "Irving",
+      "LastName": "Kris",
+      "Gender": "Female",
+      "Email": "Candido_Bayer16@gmail.com"
+     },
+    {
+      "id": 18,
+      "FirstName": "Nia",
+      "LastName": "Rosenbaum",
+      "Gender": "Male",
+      "Email": "elo67@yahoo.com"
+         },
+    {
+      "id": 19,
+      "FirstName": "Kristofer",
+      "LastName": "Spinka",
+      "Gender": "Male",
+      "Email": "hon10@yahoo.com"
+      
+    },
+    {
+      "id": 20,
+      "FirstName": "Julius",
+      "LastName": "Schoen",
+      "Gender": "Female",
+      "Email": "Rachel_Franecki@hotmail.com"
+      
+    },
+    {
+      "id": 21,
+      "FirstName": "Sophia",
+      "LastName": "Smith",
+      "Gender": "Female",
+      "Email": "sophia.smith@example.com"
+      
+    },
+    {
+      "id": 22,
+      "FirstName": "Luis",
+      "LastName": "Smith",
+      "Gender":"Female",
+      "Email":"Abel97@hotmail.com"
+      
+    },
+    {
+      "id":23,
+      "FirstName": "Janet",
+      "LastName":"Kamau",
+      "Gender":"Female",
+      "Email":"janetkamau78@gmail.com"
+    },
+    {
+      "id":24,
+      "FirstName":"Atwan",
+      "LastName":"Kelly",
+      "Gender":"Male",
+      "Email":"atwankels@gmail.com"
+
+    }
+
+  ]
+}

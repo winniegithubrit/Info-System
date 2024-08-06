@@ -14,8 +14,15 @@ GRANT ALL PRIVILEGES ON InformationDatabase.* TO 'Information'@'localhost';
 FLUSH PRIVILEGES;
 
 mysql -u Information -p
+mysql -h 149.102.129.218 -P 3306 -u winniedemo -p
+5YcDQv637RKd
 
 USE InformationDatabase;
+SHOW PROCEDURE STATUS WHERE Name = 'AddProducts';
+DROP PROCEDURE IF EXISTS AddProducts;
+SHOW PROCEDURE STATUS WHERE Db = 'intern_db';
+
+
 
 Create the stored procedure
 -- Change the delimiter to //
@@ -77,13 +84,12 @@ BEGIN
 END //
 
 DELIMITER ;
-# add product stored procedure
-DELIMITER //
 
 -- Drop the existing AddProduct procedure if it exists
 DROP PROCEDURE IF EXISTS AddProduct;
+# add product stored procedure
+DELIMITER //
 
--- Create the PostProduct procedure
 CREATE PROCEDURE PostProduct(
     IN p_ProductName VARCHAR(255),
     IN p_Category VARCHAR(255),
@@ -159,3 +165,35 @@ DELIMITER ;
 
 === strict equality operator
 f12 google developer tools
+
+
+CREATE TABLE Student (
+    Id INT AUTO_INCREMENT PRIMARY KEY,
+    FirstName VARCHAR(255),
+    LastName VARCHAR(255),
+    Age INT,
+    Grade VARCHAR(50)
+);
+DELIMITER //
+
+CREATE PROCEDURE AddStudent(
+    IN p_FirstName VARCHAR(100),
+    IN p_LastName VARCHAR(100),
+    IN p_Age INT,
+    IN p_Grade VARCHAR(50)
+)
+BEGIN
+    INSERT INTO Student (FirstName, LastName, Age, Grade)
+    VALUES (p_FirstName, p_LastName, p_Age, p_Grade);
+END //
+
+DELIMITER ;
+
+DELIMITER //
+
+CREATE PROCEDURE GetStudents()
+BEGIN
+    SELECT * FROM Student ORDER BY id DESC ;
+END //
+
+DELIMITER ;
